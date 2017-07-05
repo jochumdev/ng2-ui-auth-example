@@ -1,0 +1,89 @@
+package auth
+
+import (
+	"os"
+	"path"
+	"path/filepath"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
+
+	"github.com/pcdummy/ng2-ui-auth-example/components/mongodb"
+	"github.com/pcdummy/ng2-ui-auth-example/shared"
+)
+
+type SuiteAuth struct {
+	suite.Suite
+	MongoDB bool
+	DBHas   bool
+}
+
+func (suite *SuiteAuth) SetupSuite() {
+	var dbType string
+
+	cfgPath, _ := filepath.Abs(path.Join("..", "..", "dev.ini"))
+	gc := &shared.Configuration{
+		Debug:      true,
+		ConfigFile: cfgPath,
+	}
+
+	url := os.Getenv("MONGODB_URL")
+	if url == "" {
+		suite.MongoDB = false
+		suite.DBHas = false
+		dbType = "none"
+	} else {
+		suite.MongoDB = true
+		suite.DBHas = true
+		c := &mongodb.Configuration{Enabled: true, Url: url}
+
+		mongodb.SetupStruct(c, gc)
+		mongodb.DBSession.DB("").DropDatabase()
+
+		dbType = mongodb.ConfigDBTypeMongoDB
+	}
+
+	ac := &Configuration{
+		AuthDbType:    dbType,
+		JWTKeyFile:    path.Join("keys", "lxdwebd.rsa"),
+		JWTPubKeyFile: path.Join("keys", "lxdwebd.rsa.pub"),
+	}
+
+	SetupStruct(ac, gc)
+}
+
+func (suite *SuiteAuth) TearDownSuite() {
+	if suite.MongoDB {
+		mongodb.DBSession.DB("").DropDatabase()
+	}
+}
+
+func (suite *SuiteAuth) TestDefaultPermissions() {
+	if !suite.DBHas {
+		return
+	}
+
+	db, err := DbGet()
+	assert.Nil(suite.T(), err)
+
+	for _, role := range []string{RoleSuperAdmin, RoleAdmin} {
+		dbRole, err := db.RoleFind(role)
+		assert.Nil(suite.T(), err)
+
+		assert.True(suite.T(), dbRole.PermissionHas(PermissionUserCreate))
+		assert.True(suite.T(), dbRole.PermissionHas(PermissionUserDelete))
+		assert.True(suite.T(), dbRole.PermissionHas(PermissionUpdateProfile))
+	}
+
+	for _, role := range []string{RoleUser, RoleViewer} {
+		dbRole, err := db.RoleFind(role)
+		assert.Nil(suite.T(), err)
+
+		assert.True(suite.T(), dbRole.PermissionHas(PermissionUpdateProfile))
+	}
+}
+
+func TestAuthSuite(t *testing.T) {
+	suite.Run(t, new(SuiteAuth))
+}

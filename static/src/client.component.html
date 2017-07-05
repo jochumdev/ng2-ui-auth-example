@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="navbar-header">
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active"><i class="ion-ios-pulse"></i> ng2-ui-auth</a>
+  </div>
+
+  <ul class="nav navbar-nav">
+    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+    <li><a *ngIf="isAuthenticated()" routerLink="/profile" routerLinkActive="active">Profile</a></li>
+  </ul>
+  <ul *ngIf="!isAuthenticated()" class="nav navbar-nav navbar-right">
+    <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+    <li *ngIf="signupAllowed()"><a routerLink="/signup" routerLinkActive="active">Sign up</a></li>
+  </ul>
+  <ul *ngIf="isAuthenticated()" class="nav navbar-nav navbar-right">
+    <li><a (click)="logout()">Logout</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>

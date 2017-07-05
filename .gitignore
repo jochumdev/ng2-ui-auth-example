@@ -1,0 +1,15 @@
+# Atom ctags
+.tags
+.tags1
+
+keys/*.rsa
+keys/*.rsa.pub
+
+json/*.json
+
+secrets.ini
+
+static/dist/
+static/bundle/
+static/src/aot/
+static/node_modules/

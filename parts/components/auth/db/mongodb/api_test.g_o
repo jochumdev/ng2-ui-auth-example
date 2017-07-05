@@ -1,0 +1,181 @@
+package authmongodb
+
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+
+	"net/http/httptest"
+
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
+
+	"github.com/pcdummy/ng2-ui-auth-example/components/mongodb"
+)
+
+func (suite *SuiteAuth) TestAPILogin() {
+	if !suite.DBHas {
+		return
+	}
+
+	db, err := DbGet()
+	assert.Nil(suite.T(), err)
+
+	// Create a test user
+	u := &User{
+		Username: "test_apiLogin",
+	}
+	u.PasswordSet("Passw0rd")
+
+	err = db.UserCreate(u)
+	assert.Nil(suite.T(), err)
+
+	// Setup echo
+	e := echo.New()
+
+	if suite.MongoDB {
+		// Injects the db session into a context.
+		mongodb.SetupEcho(e)
+	}
+
+	// Register routes
+	SetupEcho(e)
+
+	// Successfull login
+	userJSON := `{"username":"test_apiLogin","password":"Passw0rd"}`
+	rq := test.NewRequest(echo.POST, "/api/auth/v1/login", strings.NewReader(userJSON))
+	rq.Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec := test.NewResponseRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 200, rec.Status(), rec.Body.String())
+
+	// Bad password
+	userJSON = `{"username":"test_apiLogin","password":"bad"}`
+	rq = test.NewRequest(echo.POST, "/api/auth/v1/login", strings.NewReader(userJSON))
+	rq.Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec = test.NewResponseRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 401, rec.Status(), rec.Body.String())
+
+	// Bad username
+	userJSON = `{"username":"bad","password":"Passw0rd"}`
+	rq = test.NewRequest(echo.POST, "/api/auth/v1/login", strings.NewReader(userJSON))
+	rq.Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rec = test.NewResponseRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 401, rec.Status(), rec.Body.String())
+}
+
+func (suite *SuiteAuth) TestAPIMe() {
+	if !suite.DBHas {
+		return
+	}
+
+	db, err := DbGet()
+	assert.Nil(suite.T(), err)
+
+	// Create a test user
+	u := &User{
+		Username: "test_apiMe",
+	}
+	u.PasswordSet("Passw0rd")
+	u.RoleAdd(RoleSuperAdmin)
+
+	err = db.UserCreate(u)
+	assert.Nil(suite.T(), err)
+
+	// Setup echo
+	e := echo.New()
+
+	if suite.MongoDB {
+		// Injects the db session into a context.
+		mongodb.SetupEcho(e)
+	}
+
+	// Register routes
+	SetupEcho(e)
+
+	// Test with correct JWT Token
+	rq := httptest.NewRequest(echo.GET, "/api/auth/v1/me", strings.NewReader(""))
+	token, apiErr := u.TokenGenerate()
+	assert.Nil(suite.T(), apiErr)
+	rq.Header.Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+	rec := httptest.NewRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 200, rec.Status(), rec.Body.String())
+
+	// Test with wrong JWT Token
+	rq = httptest.NewRequest(echo.GET, "/api/auth/v1/me", strings.NewReader(""))
+	rq.Header().Set(echo.HeaderAuthorization, "Bearer badtoken")
+	rec = httptest.NewRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 401, rec.Status(), rec.Body.String())
+}
+
+func (suite *SuiteAuth) TestAPIMePut() {
+	if !suite.DBHas {
+		return
+	}
+
+	db, apiErr := DbGet()
+	assert.Nil(suite.T(), apiErr)
+
+	// Create a test user
+	u := &User{
+		Username: "test_apiMePut",
+	}
+	u.PasswordSet("Passw0rd")
+	u.RoleAdd(RoleSuperAdmin)
+
+	apiErr = db.UserCreate(u)
+	assert.Nil(suite.T(), apiErr)
+
+	// Setup echo
+	e := echo.New()
+
+	if suite.MongoDB {
+		// Injects the db session into a context.
+		mongodb.SetupEcho(e)
+	}
+
+	// Register routes
+	SetupEcho(e)
+
+	data := &apiMeResponse{
+		DisplayName: "APIMePut Name",
+		EMail:       "example@example.com",
+	}
+	b, err := json.Marshal(data)
+	assert.Nil(suite.T(), err)
+
+	// Test put with correct JWT Token and permission
+	rq := test.NewRequest(echo.PUT, "/api/auth/v1/me", strings.NewReader(string(b)))
+	token, err := u.TokenGenerate()
+	assert.Nil(suite.T(), err)
+	rq.Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rq.Header().Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+	rec := test.NewResponseRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 200, rec.Status(), rec.Body.String())
+
+	// Refresh the user
+	u, apiErr = db.UserFindByID(u.ID)
+	assert.Nil(suite.T(), apiErr)
+
+	// Check the updated properties
+	assert.Equal(suite.T(), data.DisplayName, u.PropertyGet("displayName", ""))
+	assert.Equal(suite.T(), data.EMail, u.PropertyGet("email", ""))
+
+	// Check with no permissions
+	err = u.RoleRemove(RoleSuperAdmin)
+	assert.Nil(suite.T(), err)
+	apiErr = db.UserUpdate(u)
+	assert.Nil(suite.T(), apiErr)
+
+	rq = test.NewRequest(echo.PUT, "/api/auth/v1/me", strings.NewReader(string(b)))
+	rq.Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	rq.Header().Set(echo.HeaderAuthorization, fmt.Sprintf("Bearer %s", token))
+	rec = test.NewResponseRecorder()
+	e.ServeHTTP(rq, rec)
+	assert.Equal(suite.T(), 401, rec.Status(), rec.Body.String())
+}

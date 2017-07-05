@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="center-form panel">
+      <div class="panel-body">
+        <h2 class="text-center">Log in</h2>
+        <form ngForm [formGroup]="form" (ngSubmit)="login(form.value)">
+          <div class="form-group has-feedback"
+               [ngClass]="{'has-error':fh.hasError(form, 'username')}"
+          >
+              <div class="alert alert-danger" *ngIf="fh.hasError(form, 'username')">Username must be at least 3 characters long.</div>
+              <input type="text"
+                     class="form-control input-lg"
+                     id="username"
+                     name="username"
+                     [formControl]="form.controls['username']"
+                     placeholder="Username"
+              >
+              <span class="ion-person form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback"
+               [ngClass]="{'has-error':fh.hasError(form, 'password')}"
+          >
+              <div class="alert alert-danger" *ngIf="fh.hasError(form, 'password')">Password must be at least 6 characters long.</div>
+              <input type="password"
+                     class="form-control input-lg"
+                     id="pwd"
+                     name="password"
+                     [formControl]="form.controls['password']"
+                     placeholder="Password"
+              >
+              <span class="ion-key form-control-feedback"></span>
+          </div>
+          <button type="submit" class="btn btn-lg  btn-block btn-success" [disabled]="!form.valid">Log in</button>
+          <br/>
+          <p class="text-center text-muted">
+            <small>Don't have an account yet? <a routerLink="/signup" routerLinkActive="active">Sign up</a></small>
+          </p>
+          <div class="signup-or-separator">
+            <h6 class="text">or</h6>
+            <hr>
+          </div>
+        </form>
+        <button *ngIf="hasProvider('facebook')" class="btn btn-block btn-facebook" (click)="externalLogin('facebook')">
+          <i class="ion-social-facebook"></i> Sign in with Facebook
+        </button>
+        <button *ngIf="hasProvider('google')" class="btn btn-block btn-google-plus" (click)="externalLogin('google')">
+          <span class="ion-social-googleplus"></span>Sign in with Google
+        </button>
+        <button *ngIf="hasProvider('linkedin')" class="btn btn-block btn-linkedin" (click)="externalLogin('linkedin')">
+          <i class="ion-social-linkedin"></i> Sign in with LinkedIn
+        </button>
+        <button *ngIf="hasProvider('instagram')" class="btn btn-block btn-instagram" (click)="externalLogin('instagram')">
+          <i class="ion-social-instagram"></i> Sign in with Instagram
+        </button>
+        <button *ngIf="hasProvider('twitter')" class="btn btn-block btn-twitter" (click)="externalLogin('twitter')">
+          <i class="ion-social-twitter"></i> Sign in with Twitter
+        </button>
+        <button *ngIf="hasProvider('foursquare')" class="btn btn-block btn-foursquare" (click)="externalLogin('foursquare')">
+          <i class="fa fa-foursquare"></i> Sign in with Foursquare
+        </button>
+        <button *ngIf="hasProvider('github')" class="btn btn-block btn-github" (click)="externalLogin('github')">
+          <i class="ion-social-github"></i> Sign in with GitHub
+        </button>
+        <button *ngIf="hasProvider('bitbucket')" class="btn btn-block btn-bitbucket" (click)="externalLogin('bitbucket')">
+          <i class="fa fa-bitbucket"></i> Sign in with Bitbucket
+        </button>
+        <button *ngIf="hasProvider('yahoo')" class="btn btn-block btn-yahoo" (click)="externalLogin('yahoo')">
+          <i class="ion-social-yahoo"></i> Sign in with Yahoo
+        </button>
+        <button *ngIf="hasProvider('live')" class="btn btn-block btn-live" (click)="externalLogin('live')">
+          <i class="ion-social-windows"></i> Sign in with Windows Live
+        </button>
+        <button *ngIf="hasProvider('twitch')" class="btn btn-block btn-twitch" (click)="externalLogin('twitch')">
+          <i class="ion-social-twitch"></i> Sign in with Twitch
+        </button>
+        <button *ngIf="hasProvider('spotify')" class="btn btn-block btn-spotify" (click)="externalLogin('spotify')">
+          <i class="fa fa-spotify"></i> Sign in with Spotify
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+package mongodb
+
+import "github.com/stretchr/testify/assert"
+
+func (suite *SuiteMongoDB) TestDBSessionNotNil() {
+	if !suite.Enabled {
+		return
+	}
+
+	assert.NotNil(suite.T(), Component.DBSessionGet())
+}
+
+// func (suite *SuiteMongoDB) TestDBFromContext() {
+// 	if !suite.Enabled {
+// 		return
+// 	}
+//
+// 	e := echo.New()
+//
+// 	rq := httptest.NewRequest(echo.POST, "/", strings.NewReader(""))
+// 	rec := httptest.NewRecorder()
+// 	c := e.NewContext(rq, rec)
+//
+// 	// Injects the DB into a context.
+// 	h := middlewareMongoDB(Component.DBSessionGet())(echo.HandlerFunc(func(c echo.Context) error {
+// 		db, err := GetDbFromContext(c)
+// 		assert.NotNil(suite.T(), db)
+// 		assert.Nil(suite.T(), err)
+//
+// 		return nil
+// 	}))
+// 	h(c)
+// }

@@ -1,0 +1,55 @@
+package auth
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestUserPermission(t *testing.T) {
+	u := &User{Username: "test"}
+
+	u.PermissionAdd(PermissionUserCreate)
+	assert.True(t, u.PermissionHas(PermissionUserCreate))
+
+	u.PermissionRemove(PermissionUserCreate)
+	assert.False(t, u.PermissionHas(PermissionUserCreate))
+}
+
+func TestUserRole(t *testing.T) {
+	u := &User{Username: "test"}
+
+	u.RoleAdd(RoleSuperAdmin)
+	assert.True(t, u.RoleHas(RoleSuperAdmin))
+
+	u.RoleRemove(RoleSuperAdmin)
+	assert.False(t, u.RoleHas(RoleSuperAdmin))
+}
+
+func TestUserPasswordCheck(t *testing.T) {
+	u := &User{Username: "test"}
+	u.PasswordSet("ajsfij2wiujvna9")
+
+	assert.Nil(t, u.Authenticate("ajsfij2wiujvna9"))
+}
+
+func (suite *SuiteAuth) TestTokenGeneration() {
+	u := &User{Username: "test", ID: "1"}
+	token, err := u.TokenGenerate()
+	assert.Nil(suite.T(), err)
+
+	tokenData, err := TokenValidate(token)
+	assert.Nil(suite.T(), err)
+
+	assert.Equal(suite.T(), "1", tokenData.ID)
+}
+
+func TestRolePermission(t *testing.T) {
+	r := &Role{Name: RoleSuperAdmin}
+
+	r.PermissionAdd(PermissionUserCreate)
+	assert.True(t, r.PermissionHas(PermissionUserCreate))
+
+	r.PermissionRemove(PermissionUserCreate)
+	assert.False(t, r.PermissionHas(PermissionUserCreate))
+}

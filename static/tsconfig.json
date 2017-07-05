@@ -1,0 +1,37 @@
+{
+  "angularCompilerOptions": {
+    "genDir": "src/aot/",
+    "debug": true
+  },
+  "compilerOptions": {
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "mapRoot": "",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "sourceRoot": "",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "baseUrl": "",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ]
+  },
+  "files": ["src/bootstrap"]
+}
