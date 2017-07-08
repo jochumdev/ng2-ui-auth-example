@@ -38,13 +38,12 @@ type Configuration struct {
 	GoogleSecret     string
 	GithubClientID   string
 	GithubSecret     string
+	TwitterKey       string
+	TwitterSecret    string
 
 	// FoursquareSecret  string
 	// LinkedinSecret    string
 	// WindowsLiveSecret string
-	// TwitterKey        string
-	// TwitterSecret     string
-	// TwitterCallback   string
 	// YahooSecret       string
 
 	UsersCollection       string

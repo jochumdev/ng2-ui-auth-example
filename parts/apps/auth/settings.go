@@ -5,4 +5,5 @@ const (
 	SettingGoogleClientID   = "app_auth.GoogleClientID"
 	SettingFacebookClientID = "app_auth.FacebookClientID"
 	SettingGithubClientID   = "app_auth.GithubClientID"
+	SettingTwitterEnabled   = "app_auth.TwitterEnabled"
 )

@@ -25,7 +25,7 @@
 
 ### TODO
 
-- Implement more Platforms, especialy one with OAuth1
+- Move the Go server and its components to server/.
 
 ### Authors
 

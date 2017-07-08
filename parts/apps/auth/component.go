@@ -94,6 +94,15 @@ func (c *AppAuthComponent) SetupStruct(cfg *Configuration, configFile string, de
 	}
 	sdb.SettingCreate(s, true)
 
+	s = &shared.Property{
+		Key:            SettingTwitterEnabled,
+		Value:          authConfig.TwitterKey != "",
+		Type:           shared.PropertyTypeBool,
+		PermissionView: auth.PermissionGuest,
+		PermissionEdit: PermissionReadonlySetting,
+	}
+	sdb.SettingCreate(s, true)
+
 	return nil
 }
 

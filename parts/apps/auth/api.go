@@ -29,6 +29,7 @@ func apiRegisterRoutes(e *echo.Echo) {
 	roauth.POST("/google", auth.AuthorisationWrapper(apiCallbackGooglePost, ""))
 	roauth.POST("/facebook", auth.AuthorisationWrapper(apiCallbackFacebookPost, ""))
 	roauth.POST("/github", auth.AuthorisationWrapper(apiCallbackGithubPost, ""))
+	roauth.POST("/twitter", auth.AuthorisationWrapper(apiCallbackTwitterPost, ""))
 
 	rme := ra.Group("/me")
 	rme.Use(auth.MiddlewareJWTAuthJSON)

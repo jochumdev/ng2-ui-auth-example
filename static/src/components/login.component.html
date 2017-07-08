@@ -3,7 +3,7 @@
     <div class="center-form panel">
       <div class="panel-body">
         <h2 class="text-center">Log in</h2>
-        <form ngForm [formGroup]="form" (ngSubmit)="login(form.value)">
+        <form [formGroup]="form" (ngSubmit)="login(form.value)">
           <div class="form-group has-feedback"
                [ngClass]="{'has-error':fh.hasError(form, 'username')}"
           >

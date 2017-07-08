@@ -12,6 +12,7 @@ export const SettingAuthAllowSignup = "app_auth.AllowSignup";
 export const SettingAuthGoogleClientID = "app_auth.GoogleClientID";
 export const SettingAuthFacebookClientID = "app_auth.FacebookClientID";
 export const SettingAuthGithubClientID = "app_auth.GithubClientID";
+export const SettingTwitterEnabled = "app_auth.TwitterEnabled";
 
 export class SettingsProperty implements ISettingsProperty {
   key: string;
@@ -74,21 +75,19 @@ export class SettingsService {
   hasProvider(provider: string): boolean {
     if (provider == 'google') {
       if (this.settings.has(SettingAuthGoogleClientID)) {
-        if (this.settings.get(SettingAuthGoogleClientID).asString() != "") {
-          return true;
-        }
+        return this.settings.get(SettingAuthGoogleClientID).asString() != "";
       }
     } else if (provider == "facebook") {
       if (this.settings.has(SettingAuthFacebookClientID)) {
-        if (this.settings.get(SettingAuthFacebookClientID).asString() != "") {
-          return true;
-        }
+        return this.settings.get(SettingAuthFacebookClientID).asString() != "";
       }
     } else if (provider == "github") {
       if (this.settings.has(SettingAuthGithubClientID)) {
-        if (this.settings.get(SettingAuthGithubClientID).asString() != "") {
-          return true;
-        }
+        return this.settings.get(SettingAuthGithubClientID).asString() != "";
+      }
+    } else if (provider == "twitter") {
+      if (this.settings.has(SettingTwitterEnabled)) {
+        return this.settings.get(SettingTwitterEnabled).asBool();
       }
     }
 

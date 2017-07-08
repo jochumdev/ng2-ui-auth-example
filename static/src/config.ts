@@ -24,6 +24,10 @@ export class MyAuthConfig extends CustomConfig {
       github: {
         url: '/api/auth/v1/a/github',
         redirectUri: window.location.protocol + '//' + window.location.host + '/api/auth/v1/blank',
+      },
+      twitter: {
+        url: '/api/auth/v1/a/twitter',
+        redirectUri: window.location.protocol + '//' + window.location.host + '/api/auth/v1/blank',
       }
     };
 }
