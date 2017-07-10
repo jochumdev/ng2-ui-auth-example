@@ -25,8 +25,6 @@
 
 ### TODO
 
-- Move the Go server and its components to server/.
-
 ### Authors
 
 - René Jochum @pcdummy
