@@ -1,38 +1,42 @@
 {
   "angularCompilerOptions": {
+    "skipMetadataEmit": true,
     "genDir": "src/aot/",
     "debug": false
   },
   "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "mapRoot": "",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "noEmitOnError": true,
     "noImplicitAny": true,
-    "noUnusedParameters": "See: https://github.com/angular/angular/issues/15532",
+    "suppressImplicitAnyIndexErrors": true,
     "noUnusedParameters": false,
     "noUnusedLocals": true,
-    "outDir": "./dist",
-    "rootDir": ".",
+    "outDir": "dist",
+    "noImplicitAny": true,
     "skipLibCheck": true,
-    "sourceMap": true,
-    "sourceRoot": "",
-    "target": "es5",
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
-      "dom",
-      "es6"
-    ],
-    "baseUrl": "",
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "types": [
-      "jasmine",
-      "node"
+      "es2015",
+      "dom"
     ]
   },
-  "files": ["src/bootstrap.aot"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.css",
+    "src/**/*.html"
+  ],
+  "exclude": [
+    "More",
+    "SKIP-create-bundle",
+    "SKIP-AOT",
+    "node_modules/"
+  ]
 }

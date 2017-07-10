@@ -1,8 +1,24 @@
 {
   "name": "client",
+  "author": "René Jochum <public@pc-dummy.net>",
+  "license": "MIT",
+  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "src/bootstrap.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server www",
+    "explore": "source-map-explorer www/bundle.js",
+    "ngc:prod": "ngc -p tsconfig.prod.json",
+    "ngc:dev": "ngc -p tsconfig.json",
+    "rollup:prod": "rollup -c rollup.config.prod.js",
+    "rollup:dev": "rollup -c rollup.config.dev.js",
+    "copy": "copyfiles -u 1 src/**/*.css src/**/*.html dist/",
+    "copy:materialize": "copyfiles -u 3 node_modules/materialize-css/dist/**/*.* www/materialize",
+    "prod": "npm run ngc:prod && npm run copy && npm run copy:materialize && npm run rollup:prod",
+    "dev": "npm run ngc:dev && npm run copy && npm run copy:materialize && npm run rollup:dev"
+  },
   "dependencies": {
     "@angular/animations": "^4.2.6",
     "@angular/common": "^4.2.6",
@@ -19,32 +35,23 @@
     "ng2-toastr": "^4.1.2",
     "ng2-ui-auth": "^6.2.0",
     "rxjs": "^5.4.2",
-    "ts-helpers": "^1.1.2",
     "zone.js": "^0.8.12"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^4.2.6",
-    "@types/core-js": "^0.9.42",
-    "@types/jasmine": "^2.5.53",
-    "@types/node": "^8.0.9",
-    "angular2-template-loader": "^0.6.2",
-    "awesome-typescript-loader": "^3.2.1",
-    "css-loader": "^0.28.4",
-    "file-loader": "^0.11.2",
-    "html-loader": "^0.4.5",
-    "style-loader": "^0.18.2",
-    "to-string-loader": "^1.1.5",
-    "typescript": "^2.4.1",
-    "url-loader": "^0.5.9",
-    "webpack": "^3.1.0"
-  },
-  "scripts": {
-    "ngc": "ngc",
-    "dev": "webpack --config webpack.config.dev.js",
-    "watch": "webpack --config webpack.config.dev.js --watch",
-    "prod": "npm run ngc && webpack --config webpack.config.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT"
+    "@angular/compiler-cli": "4.2.6",
+    "copyfiles": "^1.2.0",
+    "cssnano": "^3.10.0",
+    "live-server": "^1.2.0",
+    "rollup": "0.45.0",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve-angular": "^2.0.3",
+    "rollup-plugin-postcss": "^0.5.3",
+    "rollup-plugin-scss": "^0.3.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-uglify": "^2.0.1",
+    "source-map-explorer": "^1.4.0",
+    "typescript": "2.4.1",
+    "uglify-es": "^3.0.24"
+  }
 }
