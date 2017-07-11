@@ -1,6 +1,5 @@
 import config from './rollup.config.js'
 
-import buble from 'rollup-plugin-buble';
 import uglify from 'rollup-plugin-uglify';
 import {minify} from 'uglify-es';
 import postcss from 'rollup-plugin-postcss';

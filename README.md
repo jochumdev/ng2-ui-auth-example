@@ -20,7 +20,7 @@
 5. Paste the ClientId and the Secret into your secrets.ini.
 6. Install node, npm and go 1.7+
 7. Run `make` to build the go server
-8. Build the angular client: `cd client/; npm i; npm run dev && npm run prod && npm run ie11`
+8. Build the angular client: `cd client/; yarn install && yarn build`
 9. Run the server: `cd ..; ng2uiauthexampled --config dev.ini serve`
 
 ### NGINX Config
