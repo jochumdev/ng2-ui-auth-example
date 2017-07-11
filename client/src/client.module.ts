@@ -11,7 +11,7 @@ import {LoginComponent} from './components/login.component';
 import {SignupComponent} from './components/signup.component';
 import {HomeComponent} from './components/home.component';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {ToastModule} from 'ng2-toastr';
 import {ErrorHandleService} from './services/error-handle.service';
 import {FormHelperService} from './services/form-helper.service';
 import {SettingsService} from './services/settings.service';

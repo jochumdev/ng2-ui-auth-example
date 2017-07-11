@@ -4,7 +4,7 @@ import {AuthService} from 'ng2-ui-auth';
 import {Router} from '@angular/router';
 import {ErrorHandleService} from './services/error-handle.service';
 import {SettingsService, SettingAuthAllowSignup} from './services/settings.service';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+import {ToastsManager} from 'ng2-toastr';
 /**
  * Created by Ron on 03/10/2016.
  */

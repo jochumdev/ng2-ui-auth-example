@@ -1,5 +1,5 @@
 import {Injectable, ViewContainerRef} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+import {ToastsManager} from 'ng2-toastr';
 import {Response} from '@angular/http';
 /**
  * Created by ronze on 10/9/2016.
