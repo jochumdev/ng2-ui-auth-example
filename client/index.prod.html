@@ -13,5 +13,12 @@
 <body>
 <my-client>Loading...</my-client>
 </body>
-<script src="/bundle/bundle.min.js"></script>
+<script type="text/javascript">
+    if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent) && (!!window.MSInputMethodContext && !!document.documentMode)) {
+      // IE11
+      document.write('<script src="/bundle/bundle-ie11.min.js"><\/script>');
+    } else {
+      document.write('<script src="/bundle/bundle.min.js"><\/script>');
+    }
+</script>
 </html>

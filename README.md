@@ -13,15 +13,15 @@
 
 ### Usage
 
-1. $ go get github.com/pcdummy/ng2-ui-auth-example
-2. $ cd $GOPATH/src/github.com/pcdummy/ng2-ui-auth-example
-3. $ cp secrets.ini.tmpl to secrets.ini
+1. `go get github.com/pcdummy/ng2-ui-auth-example`
+2. `cd $GOPATH/src/github.com/pcdummy/ng2-ui-auth-example`
+3. `cp secrets.ini.tmpl to secrets.ini`
 4. Goto Google, Facebook and Github and create an OAuth app.
 5. Paste the ClientId and the Secret into your secrets.ini.
 6. Install node, npm and go 1.7+
-7. Run "$ make" to build the go server
-8. Build the angular client: $ cd client/; npm i; npm run dev && npm run prod
-9. Run the server: $ cd ..; ng2uiauthexampled --config dev.ini serve
+7. Run `make` to build the go server
+8. Build the angular client: `cd client/; npm i; npm run dev && npm run prod && npm run ie11`
+9. Run the server: `cd ..; ng2uiauthexampled --config dev.ini serve`
 
 ### NGINX Config
 

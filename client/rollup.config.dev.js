@@ -1,5 +1,6 @@
 import config from './rollup.config.js'
 
+import buble from 'rollup-plugin-buble';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import postcss from 'rollup-plugin-postcss';
 
