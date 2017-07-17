@@ -3,18 +3,26 @@
     <div class="panel-heading">Profile</div>
     <div class="panel-body">
       <legend><i class="ion-clipboard"></i> Edit My Profile</legend>
-      <form ngForm [formGroup]="form">
+      <form [formGroup]="form" (ngSubmit)="updateProfile(form.value)">
         <div class="form-group">
           <label class="control-label">Profile Picture</label>
           <img class="profile-picture" [src]="user.picture || 'https://placehold.it/100x100'">
         </div>
         <div class="form-group">
           <label class="control-label"><i class="ion-person"></i> Display Name</label>
-          <input type="text" class="form-control" [formControl]="form.controls['displayName']" [(ngModel)]="user.displayName" />
+          <input type="text" 
+                 class="form-control" 
+                 name="displayName"
+                 [formControl]="form.controls['displayName']" 
+                 [(ngModel)]="user.displayName" />
         </div>
         <div class="form-group">
           <label class="control-label"><i class="ion-at"></i> Email Address</label>
-          <input type="email" class="form-control" [formControl]="form.controls['email']" [(ngModel)]="user.email" />
+          <input type="email" 
+                 class="form-control" 
+                 name="email"
+                 [formControl]="form.controls['email']" 
+                 [(ngModel)]="user.email" />
         </div>
         <button class="btn btn-lg btn-success">Update Information</button>
       </form>

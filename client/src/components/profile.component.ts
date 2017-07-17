@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import {ErrorHandleService} from '../services/error-handle.service';
 import {FormHelperService} from '../services/form-helper.service';
 import {SettingsService} from '../services/settings.service';
+import {IProfileData} from '../interfaces';
 /**
  * Created by Ron on 03/10/2016.
  */
@@ -50,6 +51,19 @@ export class ProfileComponent implements OnInit {
         .subscribe((user: IProfileUser) => {
             this.user = user
         });
+    }
+
+    updateProfile(pdata: IProfileData) {
+      this.http.put('/api/auth/v1/me', pdata)
+        .map((response: Response) => <IProfileUser>response.json())
+        .catch((err: any) => {
+          this.eh.handleError(err);
+          return Observable.throw('Server error');
+        })
+        .subscribe((user: IProfileUser) => {
+            this.user = user;
+            this.eh.saveMessage('success', 'Your profile has been updated');
+        });        
     }
 
     unlink(provider: string) {

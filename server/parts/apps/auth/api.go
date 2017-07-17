@@ -266,7 +266,8 @@ func apiMePut(c echo.Context, u *auth.User) error {
 		return shared.APIHandleError(c, err)
 	}
 
-	return c.JSON(http.StatusOK, "ok")
+	// Return updated User data.
+	return apiMe(c, u)
 }
 
 type apiOAuthPData struct {

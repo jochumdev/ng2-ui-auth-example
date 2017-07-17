@@ -23,7 +23,13 @@ export interface ILoginData {
     username: string;
     password: string;
 }
+
 export interface ISignupData extends ILoginData {
+}
+
+export interface IProfileData {
+    displayName: string;
+    email: string;
 }
 
 export interface IProfileUser {
