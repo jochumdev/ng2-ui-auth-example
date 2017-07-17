@@ -24,15 +24,15 @@
     "build": "npm run dev && npm run prod && npm run ie11 && npm run gzip"
   },
   "dependencies": {
-    "@angular/animations": "^4.2.6",
-    "@angular/common": "^4.2.6",
-    "@angular/compiler": "^4.2.6",
-    "@angular/core": "^4.2.6",
-    "@angular/forms": "^4.2.6",
-    "@angular/http": "^4.2.6",
-    "@angular/platform-browser": "^4.2.6",
-    "@angular/platform-browser-dynamic": "^4.2.6",
-    "@angular/router": "^4.2.6",
+    "@angular/animations": "^4.3.0",
+    "@angular/common": "^4.3.0",
+    "@angular/compiler": "^4.3.0",
+    "@angular/core": "^4.3.0",
+    "@angular/forms": "^4.3.0",
+    "@angular/http": "^4.3.0",
+    "@angular/platform-browser": "^4.3.0",
+    "@angular/platform-browser-dynamic": "^4.3.0",
+    "@angular/router": "^4.3.0",
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
@@ -40,14 +40,14 @@
     "ng2-ui-auth": "^7.0.2",
     "rxjs": "^5.4.2",
     "ts-helpers": "^1.1.2",
-    "zone.js": "^0.8.12"
+    "zone.js": "^0.8.13"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "4.2.6",
+    "@angular/compiler-cli": "4.3.0",
     "copyfiles": "^1.2.0",
-    "cssnano": "^3.10.0",
+    "cssnano": "^4.0.0-rc.1",
     "live-server": "^1.2.0",
-    "rollup": "0.45.1",
+    "rollup": "0.45.2",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve-angular": "^2.0.3",
@@ -57,6 +57,6 @@
     "rollup-plugin-uglify": "^2.0.1",
     "source-map-explorer": "^1.4.0",
     "typescript": "2.4.1",
-    "uglify-es": "^3.0.24"
+    "uglify-es": "^3.0.25"
   }
 }
