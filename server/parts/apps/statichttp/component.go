@@ -69,8 +69,8 @@ func (c *StaticHttpComponent) SetupEcho(e *echo.Echo) error {
 		}
 
 		log.Printf("Serving static content from '%s'", c.config.StaticDir)
-		e.File("/", filepath.Join(c.config.StaticDir, c.config.Index))
 		e.Static("/", c.config.StaticDir)
+		e.File("/", filepath.Join(c.config.StaticDir, c.config.Index))
 	}
 
 	return nil
