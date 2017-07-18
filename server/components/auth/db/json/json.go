@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/jsonstore"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/jsonstore"
 	"github.com/pcdummy/ng2-ui-auth-example/server/shared"
 )
 

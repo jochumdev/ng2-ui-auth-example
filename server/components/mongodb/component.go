@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/registry"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/registry"
 	ini "gopkg.in/ini.v1"
 	mgo "gopkg.in/mgo.v2"
 )

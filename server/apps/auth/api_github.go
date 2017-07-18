@@ -4,15 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
 	"golang.org/x/oauth2"
 )
 
-const apiFacebookProfileURL = "https://graph.facebook.com/v2.9/me?fields=id,name,email"
+const apiGithubProfileURL = "https://api.github.com/user"
 
-func apiCallbackFacebookPost(c echo.Context, u *auth.User) error {
+func apiCallbackGithubPost(c echo.Context, u *auth.User) error {
 	input := &oauth2InputData{}
 	if err := c.Bind(input); err != nil {
 		return c.JSON(http.StatusBadRequest, "Invalid input")
@@ -22,12 +23,12 @@ func apiCallbackFacebookPost(c echo.Context, u *auth.User) error {
 	secretConfig := auth.Component.ConfigGet()
 	conf := &oauth2.Config{
 		ClientID:     input.ClientId,
-		ClientSecret: secretConfig.FacebookSecret,
+		ClientSecret: secretConfig.GithubSecret,
 		RedirectURL:  input.RedirectURI,
 		Scopes:       []string{"public_profile", "email"},
 		Endpoint: oauth2.Endpoint{
-			AuthURL:  "https://www.facebook.com/dialog/oauth",
-			TokenURL: "https://graph.facebook.com/oauth/access_token",
+			AuthURL:  "https://github.com/login/oauth/authorize",
+			TokenURL: "https://github.com/login/oauth/access_token",
 		},
 	}
 
@@ -38,7 +39,7 @@ func apiCallbackFacebookPost(c echo.Context, u *auth.User) error {
 
 	// Step 2. Retrieve profile information about the current user.
 	hClient := &http.Client{}
-	req, _ := http.NewRequest("GET", apiFacebookProfileURL, nil)
+	req, _ := http.NewRequest("GET", apiGithubProfileURL, nil)
 	req.Header.Set("Authorization", "Bearer "+t.AccessToken)
 	res, err := hClient.Do(req)
 	if err != nil {
@@ -46,10 +47,17 @@ func apiCallbackFacebookPost(c echo.Context, u *auth.User) error {
 	}
 	defer res.Body.Close()
 
-	oPD := &apiOAuthPData{}
-	json.NewDecoder(res.Body).Decode(&oPD)
-	oPD.Picture = "https://graph.facebook.com/v2.9/" + oPD.Id + "/picture?type=large"
+	// js := &githubProfile{}
+	js := make(map[string]interface{})
+	json.NewDecoder(res.Body).Decode(&js)
+
+	oPD := &apiOAuthPData{
+		Id:      strconv.FormatFloat(js["id"].(float64), 'f', 0, 64),
+		Name:    js["name"].(string),
+		EMail:   js["email"].(string),
+		Picture: js["avatar_url"].(string),
+	}
 
 	// Step 3. Link, Create or return the current user's JWT.
-	return apiAfterOAuth(c, u, "facebook", oPD)
+	return apiAfterOAuth(c, u, "github", oPD)
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
 )
 
 // Command represents the auth command

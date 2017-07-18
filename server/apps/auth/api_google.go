@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
 	"golang.org/x/oauth2"
 )
 

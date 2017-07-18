@@ -6,8 +6,8 @@ import (
 	"gopkg.in/ini.v1"
 
 	"github.com/labstack/echo"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/registry"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/registry"
 	"github.com/pcdummy/ng2-ui-auth-example/server/shared"
 )
 

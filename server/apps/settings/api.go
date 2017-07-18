@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/settings"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/settings"
 	"github.com/pcdummy/ng2-ui-auth-example/server/shared"
 )
 

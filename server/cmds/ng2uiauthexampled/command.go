@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/registry"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/registry"
 	"github.com/pcdummy/ng2-ui-auth-example/server/shared"
 )
 

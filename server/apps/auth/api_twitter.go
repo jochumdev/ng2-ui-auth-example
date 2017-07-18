@@ -8,7 +8,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/mrjones/oauth"
-	"github.com/pcdummy/ng2-ui-auth-example/server/parts/components/auth"
+	"github.com/pcdummy/ng2-ui-auth-example/server/components/auth"
 )
 
 const apiTwitterProfileUrl = "https://api.twitter.com/1.1/account/verify_credentials.json"
