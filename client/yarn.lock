@@ -366,6 +366,10 @@ chalk@^2.0.1:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
+charm@~0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/charm/-/charm-0.1.2.tgz#06c21eed1a1b06aeb67553cdc53e23274bac2296"
+
 chokidar@^1.6.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -1627,6 +1631,12 @@ osenv@0, osenv@^0.1.4:
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
+
+pace@pace-js:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/pace/-/pace-0.0.4.tgz#d66405d5f5bc12d25441a6e26c878dbc69e77a77"
+  dependencies:
+    charm "~0.1.0"
 
 parse-glob@^3.0.4:
   version "3.0.4"

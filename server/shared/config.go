@@ -5,17 +5,17 @@ import (
 	"path/filepath"
 	"strings"
 
-	"gopkg.in/ini.v1"
+	ini "gopkg.in/ini.v1"
 )
 
 func IniConfigParse(cfile string, debug bool) (string, *ini.File) {
 	cfile, _ = filepath.Abs(cfile)
 
 	cfg, err := ini.Load(cfile)
-	cfg.BlockMode = false // See: http://go-ini.github.io/ini/
 	if err != nil {
 		log.Fatalf("ERROR: Failed to read: " + cfile)
 	}
+	cfg.BlockMode = false // See: http://go-ini.github.io/ini/
 
 	baseDir := filepath.Dir(cfile)
 	extends := cfg.Section("").Key("extends").MustString("")

@@ -29,7 +29,6 @@ export default {
         'node_modules/core-js/**',
         'node_modules/zone.js/**',
         'node_modules/rxjs/**',
-        'node_modules/ng2-ui-auth/**',
         'node_modules/ng2-toastr/**'
       ]
     })
