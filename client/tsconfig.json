@@ -1,42 +1,19 @@
 {
-  "angularCompilerOptions": {
-    "skipMetadataEmit": true,
-    "genDir": "src/aot/",
-    "debug": true
-  },
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es2015",
-    "module": "es2015",
-    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedParameters": false,
-    "noUnusedLocals": true,
-    "outDir": "dist",
-    "noImplicitAny": true,
-    "skipLibCheck": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
     ]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.css",
-    "src/**/*.html"
-  ],
-  "exclude": [
-    "More",
-    "SKIP-create-bundle",
-    "SKIP-AOT",
-    "node_modules/"
-  ]
+  }
 }

@@ -8,10 +8,9 @@ keys/*.rsa.pub
 json/*.json
 
 secrets.ini
+vendor/
 
 client/.awcache/
 client/dist/
-client/bundle/
-client/src/aot/
 client/node_modules/
 client/.python-version
